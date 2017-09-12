@@ -1,4 +1,6 @@
-package ru.javago.generative.factoryMethod.source;
+package ru.javago.generative.factoryMethod.source.factories;
+
+import ru.javago.generative.factoryMethod.source.transport.Transport;
 
 public abstract class Logistics {
     abstract Transport createTransport();

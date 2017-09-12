@@ -1,4 +1,4 @@
-package ru.javago.generative.factoryMethod.source;
+package ru.javago.generative.factoryMethod.source.transport;
 
 public class Truck implements Transport {
     public void deliver(String cargo, String place) {
