@@ -6,6 +6,7 @@ import ru.javago.generative.abstractFactory.source.factories.MacFactory;
 import ru.javago.generative.abstractFactory.source.factories.WinFactory;
 
 public class Main {
+
     public static void main(String[] args) {
         GUIFactory winFactory = new WinFactory();
         Application wintApplication = new Application(winFactory);
