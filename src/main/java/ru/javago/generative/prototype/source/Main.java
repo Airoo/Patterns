@@ -5,6 +5,7 @@ import ru.javago.generative.prototype.source.shapes.Shape;
 import ru.javago.generative.prototype.source.shapes.Triangle;
 
 public class Main {
+
     public static void main(String[] args) throws CloneNotSupportedException {
         Shape temporal = null;
         Shape prototype = new Triangle();
