@@ -1,0 +1,48 @@
+package ru.javago.structural.flyweight.source.exampleOne;
+
+import java.awt.*;
+import java.lang.ref.WeakReference;
+import java.util.*;
+
+public final class FontData {
+    private static final WeakHashMap<FontData, WeakReference<FontData>> FLYWEIGHT_DATA = new WeakHashMap<>();
+    private final int pointSize;
+    private final String fontFace;
+    private final Color color;
+    private final Set<FontEffect> effects;
+
+    private FontData(int pointSize, String fontFace, Color color, EnumSet<FontEffect> effects) {
+        this.pointSize = pointSize;
+        this.fontFace = fontFace;
+        this.color = color;
+        this.effects = Collections.unmodifiableSet(effects);
+    }
+
+    public static FontData create(int pointSize, String fontFace, Color color, FontEffect... effects) {
+        EnumSet<FontEffect> effectsSet = EnumSet.noneOf(FontEffect.class);
+        effectsSet.addAll(Arrays.asList(effects));
+        FontData data = new FontData(pointSize, fontFace, color, effectsSet);
+        if (!FLYWEIGHT_DATA.containsKey(data)) {
+            FLYWEIGHT_DATA.put(data, new WeakReference<>(data));
+        }
+        return FLYWEIGHT_DATA.get(data).get();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof FontData) {
+            if (obj == this) {
+                return true;
+            }
+            FontData other = (FontData) obj;
+            return other.pointSize == pointSize && other.fontFace.equals(fontFace)
+                    && other.color.equals(color) && other.effects.equals(effects);
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return (pointSize * 37 + effects.hashCode() * 13) * fontFace.hashCode();
+    }
+}
